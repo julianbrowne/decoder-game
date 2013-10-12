@@ -1,0 +1,64 @@
+
+.decoder {
+    font-family: courier;
+    margin: 10px 50px;
+}
+
+.decoder #cypher-text {
+    border: 1px solid #DDDDDD;
+    margin: 20px 50px;
+}
+
+.decoder .buttons {
+    text-align: center;
+}
+
+.decoder p {
+    margin: 5px;
+    padding: 5px;
+}
+
+.decoder .guess {
+    color: #003333;
+    background: #FFFFCC;
+    font-weight: bold;
+}
+
+.decoder .heading {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.decoder input[type='text'] {
+    color: black;
+    background: white;
+    font: normal 10px verdana;
+    padding: 1px;
+    border: 1px solid;
+    border-color: black;
+    text-align: center;
+    width: 35px;
+}
+
+.decoder input.disabled {
+    background: #BCDBDB;
+}
+
+.decoder table {
+    padding: 1px;
+    margin: 0;
+    background: white;
+    width: 100%;
+}
+
+.decoder td {
+    color: black;
+    font: normal 14px courier;
+    padding: 2px;
+    margin: 0;
+    text-align: center;
+}
+
+.decoder .left {
+    text-align: left;
+}

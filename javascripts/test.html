@@ -1,0 +1,238 @@
+<html>
+<head>
+    <link rel="stylesheet" media="all" href="../stylesheets/decoder.css">
+    <script src="jquery-2.0.3.js"></script>
+</head>
+<body>
+<div class="decoder">
+    <p>
+        This is a simple game to illustrate how basic frequency analysis (which letters occur most commonly in English words) can be used to decode an enrypted message where a basic alphabetic substitution has been used (swapping one letter for another).
+    </p>
+
+    <div class="heading">Get Started</div>
+
+    <p>
+        First choose a random piece of enrypted text to work on
+        <button onclick="decoder.start()">Choose Text</button>
+    </p>
+
+    <form id="plaintextform" name="plaintextform">
+        <textarea name="plaintext" style="display: none;" cols="60" rows="5" onchange="fixText(this)">
+        </textarea>
+        
+    </form>
+
+    <div class="heading">Cypher Text</div>
+
+    <div id="cypher-text">
+    </div>
+
+    <div class="heading">Control Panel</div>
+
+    <p>
+        This is the mapping table that holds plain text gueses and their encrypted counterparts. Fill in a guess box and then click "try my guess". Each letter's frequency in English is included in the table so the chances are that the letter in the encrypted text that appears the most often is "e", and so on.
+    </p>
+
+    <form id="controlpanelform" name="controlpanelform">
+    <table border="0">
+        <tr>
+            <td class="left">Encrypted Letter</td>
+            <td><input type="text" maxlength="1" value="A" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="B" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="C" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="D" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="E" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="F" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="G" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="H" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="I" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="J" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="K" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="L" class="disabled" disabled="disabled"></td>
+            <td><input type="text" maxlength="1" value="M" class="disabled" disabled="disabled"></td>
+        <tr>
+        </tr>
+            <td class="left">Your Guess</td>
+            <td><input id="guess-a" type="text" maxlength="1"></td>
+            <td><input id="guess-b" type="text" maxlength="1"></td>
+            <td><input id="guess-c" type="text" maxlength="1"></td>
+            <td><input id="guess-d" type="text" maxlength="1"></td>
+            <td><input id="guess-e" type="text" maxlength="1"></td>
+            <td><input id="guess-f" type="text" maxlength="1"></td>
+            <td><input id="guess-g" type="text" maxlength="1"></td>
+            <td><input id="guess-h" type="text" maxlength="1"></td>
+            <td><input id="guess-i" type="text" maxlength="1"></td>
+            <td><input id="guess-j" type="text" maxlength="1"></td>
+            <td><input id="guess-k" type="text" maxlength="1"></td>
+            <td><input id="guess-l" type="text" maxlength="1"></td>
+            <td><input id="guess-m" type="text" maxlength="1"></td>
+        <tr>
+        </tr>
+            <td class="left">Answer</td>
+            <td><input id="answer-a" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-b" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-c" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-d" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-e" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-f" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-g" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-h" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-i" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-j" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-k" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-l" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-m" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+        <tr>
+        </tr>
+            <td class="left">Freq in English</td>
+            <td><input id="freqce-a" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-b" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-c" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-d" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-e" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-f" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-g" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-h" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-i" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-j" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-k" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-l" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-m" type="text" size="4" class="disabled" disabled="disabled"></td>
+        <tr>
+        </tr>
+            <td class="left">Freq in plain text</td>
+            <td><input id="freqpt-a" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-b" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-c" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-d" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-e" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-f" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-g" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-h" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-i" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-j" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-k" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-l" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-m" type="text" size="4" class="disabled" disabled="disabled"></td>
+        <tr>
+        </tr>
+            <td class="left">Freq in cypher text</td>
+            <td><input id="freqct-a" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-b" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-c" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-d" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-e" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-f" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-g" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-h" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-i" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-j" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-k" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-l" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-m" type="text" size="4" class="disabled" disabled="disabled"></td>
+        <tr>
+    </table>
+    <BR>
+    <table>
+        </tr>
+            <td class="left">Encrypted Letter</td>
+            <td><input type="text" value="N" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="O" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="P" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="Q" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="R" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="S" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="T" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="U" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="V" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="W" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="X" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="Y" class="disabled" disabled="disabled"></td>
+            <td><input type="text" value="Z" class="disabled" disabled="disabled"></td>
+        <tr>
+        </tr>
+            <td class="left">Your Guess</td>
+            <td><input id="guess-n" type="text" maxlength="1"></td>
+            <td><input id="guess-o" type="text" maxlength="1"></td>
+            <td><input id="guess-p" type="text" maxlength="1"></td>
+            <td><input id="guess-q" type="text" maxlength="1"></td>
+            <td><input id="guess-r" type="text" maxlength="1"></td>
+            <td><input id="guess-s" type="text" maxlength="1"></td>
+            <td><input id="guess-t" type="text" maxlength="1"></td>
+            <td><input id="guess-u" type="text" maxlength="1"></td>
+            <td><input id="guess-v" type="text" maxlength="1"></td>
+            <td><input id="guess-w" type="text" maxlength="1"></td>
+            <td><input id="guess-x" type="text" maxlength="1"></td>
+            <td><input id="guess-y" type="text" maxlength="1"></td>
+            <td><input id="guess-z" type="text" maxlength="1"></td>
+        <tr>
+        </tr>
+            <td class="left">Answer</td>
+            <td><input id="answer-n" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-o" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-p" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-q" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-r" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-s" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-t" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-u" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-v" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-w" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-x" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-y" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+            <td><input id="answer-z" type="text" maxlength="1" class="disabled" disabled="disabled"></td>
+        <tr>
+        </tr>
+            <td class="left">Freq in English</td>
+            <td><input id="freqce-n" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-o" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-p" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-q" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-r" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-s" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-t" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-u" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-v" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-w" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-x" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-y" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqce-z" type="text" size="4" class="disabled" disabled="disabled"></td>
+        <tr>
+        </tr>
+            <td class="left">Freq in plain text</td>
+            <td><input id="freqpt-n" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-o" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-p" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-q" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-r" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-s" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-t" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-u" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-v" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-w" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-x" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-y" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqpt-z" type="text" size="4" class="disabled" disabled="disabled"></td>
+        <tr>
+        </tr>
+            <td class="left">Freq in cypher text</td>
+            <td><input id="freqct-n" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-o" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-p" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-q" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-r" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-s" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-t" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-u" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-v" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-w" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-x" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-y" type="text" size="4" class="disabled" disabled="disabled"></td>
+            <td><input id="freqct-z" type="text" size="4" class="disabled" disabled="disabled"></td>
+        </tr>
+    </table>
+    </form>
+</div>
+<script src="decoder.js"></script>
+</body>
+</html>
