@@ -1,0 +1,115 @@
+
+#plain-text, #cypher-text { 
+    margin: 20px;
+}
+
+table.decoder-table { 
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+table.decoder-table th { 
+    font-weight: bold;
+    white-space: nowrap;
+    text-align: left;
+}
+
+table.decoder-table td { 
+    text-align: center;
+}
+
+table.decoder-table td.frequency { 
+    text-align: right;
+}
+
+table.decoder-table thead tr { 
+    background-color: #6591B8;
+    color: #ffffff;
+    text-align: left;
+}
+
+table.decoder-table th,
+table.decoder-table td {
+    padding: 10px 5px;
+}
+
+table.decoder-table input[type=text] { 
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    text-align: center;
+    text-transform: lowercase;
+    box-sizing: border-box;
+}
+
+table.decoder-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+table.decoder-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+table.decoder-table tbody tr:last-of-type {
+    border-bottom: 2px solid #6591B8;
+}
+
+#decoder-buttons { 
+    text-align: center;
+}
+
+button.decoder-button { 
+  appearance: none;
+  background-color: #6591B8;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 150px;
+  margin: 10px 20px;
+}
+
+button.decoder-button:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+button.decoder-button:hover {
+  background-color: #2c974b;
+}
+
+button.decoder-button:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+button.decoder-button:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+button.decoder-button:active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}

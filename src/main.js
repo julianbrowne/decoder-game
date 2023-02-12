@@ -1,4 +1,0 @@
-
-var DecoderGame = function(){ 
-	
-}();
